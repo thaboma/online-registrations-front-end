@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <form [formGroup]="personDetailsForm" (ngSubmit)="onSubmitForm(personDetailsForm)">
+        <mat-form-field [hintLabel]="'Enter first name.'" class="field-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput type="text" formControlName="fullName">
+          <mat-error *ngIf="personDetailsForm.get('fullName').errors?.required">
+            {{fullNameRequiredMessage}}</mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+
+        <mat-form-field class="field-width">
+          <mat-label>ID Number</mat-label>
+          <input matInput type="text" formControlName="identityNumber" maxlength="13">
+          <mat-hint align="start" *ngIf="!personDetailsForm.get('identityNumber').errors?.required ||
+                                 !personDetailsForm.get('identityNumber').errors?.isIdCorrect">
+            {{'Only valid Id numbers are allowed.'}}</mat-hint>
+          <mat-hint align="end">{{personDetailsForm.get('identityNumber').value?.length}}/13</mat-hint>
+          <mat-error *ngIf="personDetailsForm.get('identityNumber').errors?.required">
+            {{idNumberRequiredMessage}}</mat-error>
+          <mat-error *ngIf="personDetailsForm.get('identityNumber').errors?.isIdIncorrect">
+            {{idIncorrectMessage}}</mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+
+        <mat-form-field class="field-width">
+          <mat-label>Telephone Number</mat-label>
+          <input matInput type="text" formControlName="telephoneNumber" maxlength="10">
+          <mat-hint align="start">{{'Enter telephone number'}}</mat-hint>
+          <mat-hint align="end">{{personDetailsForm.get('telephoneNumber').value?.length}}/10</mat-hint>
+          <mat-error *ngIf="personDetailsForm.get('telephoneNumber').errors?.required">
+            {{telephoneNumberRequiredMessage}}</mat-error>
+        </mat-form-field>
+
+        <br>
+        <br>
+        <hr>
+        <button [hidden]="isSubmitted"
+          [disabled]="personDetailsForm.invalid || personDetailsForm.get('identityNumber').value?.length != 13"
+          class="btn btn-primary submit-button" type="submit">Submit</button>
+        <br>
+        <br>
+        <div style="margin-left: 5%;" *ngIf="isSubmitted">
+          <mat-spinner [strokeWidth]="5" [diameter]="40"></mat-spinner>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

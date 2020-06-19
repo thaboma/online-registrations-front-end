@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div style="margin-left: 45%;" *ngIf="!loadedRecords">
+        <mat-spinner></mat-spinner>
+      </div>
+      <table class="table table-responsive table-striped table-hover" *ngIf="loadedRecords && personReports.length > 0">
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-id">Identity Number</th>
+            <th class="col-name">Full Name</th>
+            <th class="col-tel">Telephone Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let personReport of personReports; let i = index;">
+            <td>{{i + 1}}</td>
+            <td>{{personReport.identityNumber}}</td>
+            <td>{{personReport.fullName}}</td>
+            <td>{{personReport.telephoneNumber}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h1 *ngIf="loadedRecords && personReports.length < 1" style="text-align: center;">
+        No Records Found.
+      </h1>
+    </div>
+  </div>
+</div>
